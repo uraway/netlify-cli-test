@@ -1,0 +1,20 @@
+jobs:
+    build:
+        docker:
+            - image: circleci/node:10.12.0
+        steps:
+            - checkout
+            - run: yarn install
+            - deploy:
+                  command: |
+                      curl -X POST -d {} https://api.netlify.com/build_hooks/5c8e2f8a5225e0b45de98d97
+
+version: 2.1
+workflows:
+    main:
+        jobs:
+            - build:
+                  filters:
+                      branches:
+                          only:
+                              - master
